@@ -1,0 +1,324 @@
+Task 1: Deploy
+
+Task 2: Introduction
+
+What networking constructs are used to direct traffic to the right application on a server?
+ANS: Ports
+
+EXPLANATION: The first stage in establishing this “map” of the landscape is something called port scanning. When a computer runs a network service, it opens a networking construct called a “port” to receive the connection
+
+2. How many of these are available on any network-enabled computer?
+
+ANS: 65535
+
+EXPLANATION: Every computer has a total of 65535 available ports; however, many of these are registered as standard ports
+
+3. [Research] How many of these are considered “well-known”? (These are the “standard” numbers mentioned in the task
+
+ANS: 1024
+
+EXPLANATION: Ports 0 through 1023 are defined as well-known ports.
+
+Task 3: Nmap Switches
+
+What is the first switch listed in the help menu for a ‘Syn Scan’ (more on this later!)?
+ANS: -sS
+
+EXPLANATION:
+
+
+2. Which switch would you use for a “UDP scan”?
+
+ANS: -sU
+
+EXPLANATION:
+
+
+3. If you wanted to detect which operating system the target is running on, which switch would you use?
+
+ANS: -O
+
+EXPLANATION:
+
+
+4. Nmap provides a switch to detect the version of the services running on the target. What is this switch?
+
+ANS: -sV
+
+EXPLANATION:
+
+Press enter or click to view image in full size
+
+5. The default output provided by nmap often does not provide enough information for a pentester. How would you increase the verbosity?
+
+ANS: -v
+
+EXPLANATION:
+
+
+6. Verbosity level one is good, but verbosity level two is better! How would you set the verbosity level to two?
+(Note: it’s highly advisable to always use at least this option)
+
+ANS: -vv
+
+7. We should always save the output of our scans — this means that we only need to run the scan once (reducing network traffic and thus chance of detection), and gives us a reference to use when writing reports for clients.
+
+What switch would you use to save the nmap results in three major formats?
+
+ANS: -oA
+
+EXPLANATION:
+
+
+8. What switch would you use to save the nmap results in a “normal” format?
+
+ANS: -oN
+
+Press enter or click to view image in full size
+
+9. A very useful output format: how would you save results in a “grepable” format?
+
+ANS: -oG
+
+EXPLANATION:
+
+
+10. Sometimes the results we’re getting just aren’t enough. If we don’t care about how loud we are, we can enable “aggressive” mode. This is a shorthand switch that activates service detection, operating system detection, a traceroute and common script scanning.
+
+How would you activate this setting?
+
+ANS: -A
+
+EXPLANATION:
+
+
+11. Nmap offers five levels of “timing” template. These are essentially used to increase the speed your scan runs at. Be careful though: higher speeds are noisier, and can incur errors!
+
+How would you set the timing template to level 5?
+
+ANS: -T5
+
+12. We can also choose which port(s) to scan.
+
+How would you tell nmap to only scan port 80?
+
+ANS: -p 80
+
+13. How would you tell nmap to scan ports 1000–1500?
+
+ANS: -p 1000–1500
+
+14. A very useful option that should not be ignored:
+
+How would you tell nmap to scan all ports?
+
+ANS: -p-
+
+15. How would you activate a script from the nmap scripting library (lots more on this later!)?
+
+ANS: — script
+
+EXPLANATION:
+
+
+16. How would you activate all of the scripts in the “vuln” category?
+
+ANS: — script=vuln
+
+EXPLANATION:
+
+
+Task 4: Scan Types Overview
+
+Read the Scan Types Introduction.
+ANS: No answer needed
+
+Task 5: Scan Types TCP Connect Scans
+
+Which RFC defines the appropriate behaviour for the TCP protocol?
+ANS: RFC 793
+
+EXPLANATION: For example, if a port is closed, RFC 793 states that:
+
+“… If the connection does not exist (CLOSED) then a reset is sent in response to any incoming segment except another reset. In particular, SYNs addressed to a non-existent connection are rejected by this means.”
+
+2. If a port is closed, which flag should the server send back to indicate this?
+
+ANS: RST
+
+EXPLANATION: if Nmap sends a TCP request with the SYN flag set to a closed port, the target server will respond with a TCP packet with the RST (Reset) flag set. By this response, Nmap can establish that the port is closed.
+
+Task 6: Scan Types SYN Scans
+
+There are two other names for a SYN scan, what are they?
+ANS: Half-Open, Stealth
+
+EXPLANATION: As with TCP scans, SYN scans (-sS) are used to scan the TCP port-range of a target or targets; however, the two scan types work slightly differently. SYN scans are sometimes referred to as "Half-open" scans, or "Stealth" scans.
+
+2. Can Nmap use a SYN scan without Sudo permissions (Y/N)?
+
+ANS: N
+
+Become a Medium member
+EXPLANATION: SYN scans are the default scans used by Nmap if run with sudo permissions. If run without sudo permissions, Nmap defaults to the TCP Connect scan.
+
+Task 7: Scan Types UDP Scans
+
+If a UDP port doesn’t respond to an Nmap scan, what will it be marked as?
+ANS: open|filtered
+
+EXPLANATION: When a packet is sent to an open UDP port, there should be no response. When this happens, Nmap refers to the port as being open|filtered
+
+2. When a UDP port is closed, by convention the target should send back a “port unreachable” message. Which protocol would it use to do so?
+
+ANS: ICMP
+
+EXPLANATION: When a packet is sent to a closed UDP port, the target should respond with an ICMP (ping) packet containing a message that the port is unreachable. This clearly identifies closed ports, which Nmap marks as such and moves on.
+
+Task 8: Scan Types NULL, FIN and Xmas
+
+Which of the three shown scan types uses the URG flag?
+ANS: xmas
+
+EXPLANATION: Xmas scans (-sX) send a malformed TCP packet and expects a RST response for closed ports. It's referred to as an xmas scan as the flags that it sets (PSH, URG and FIN) give it the appearance of a blinking christmas tree when viewed as a packet capture in Wireshark
+
+2. Why are NULL, FIN and Xmas scans generally used?
+
+ANS: Firewall Evasion
+
+EXPLANATION: The key advantage to these scan types is that they can sneak through certain non-stateful firewalls and packet filtering routers.
+
+3. Which common OS may respond to a NULL, FIN or Xmas scan with a RST for every port?
+
+ANS: Microsoft Windows
+
+EXPLANATION: In particular Microsoft Windows (and a lot of Cisco network devices) are known to respond with a RST to any malformed TCP packet — regardless of whether the port is actually open or not. This results in all ports showing up as being closed.
+
+Task 9: Scan Types ICMP Network Scanning
+
+How would you perform a ping sweep on the 172.16.x.x network (Netmask: 255.255.0.0) using Nmap? (CIDR notation)
+ANS: nmap -sn 172.16.0.0/16
+
+EXPLANATION: Replace x with 0’s in the IP address and the given netmask is 255.255.0.0 . 255 is equivalent to 8 bits so we have 2 times 255 so which is 2 x 8 which is 16.
+
+Task 10: NSE Scripts Overview
+
+What language are NSE scripts written in
+ANS: Lua
+
+2. Which category of scripts would be a very bad idea to run in a production environment?
+
+ANS: intrusive
+
+EXPLANATION: intrusive:- Not safe: likely to affect the target
+
+Task 11: NSE Scripts Working with the NSE
+
+What optional argument can the ftp-anon.nse script take?
+ANS: maxlist
+
+EXPLANATION:
+
+Step 1: type nmap — script-help ftp-anon.nse on linux terminal
+
+Step 2: you will see a result and search the link (https://nmap.org/nsedoc/scripts/ftp-anon.html)on browser and check for script arguments and you will find ftp-anon.maxlist, maxlist is the argument.
+
+
+Press enter or click to view image in full size
+
+Task 12: NSE Scripts Searching for Scripts
+
+Search for “smb” scripts in the /usr/share/nmap/scripts/ directory using either of the demonstrated methods.
+What is the filename of the script which determines the underlying OS of the SMB server?
+ANS: smb-os-discovery.nse
+
+EXPLANATION:
+
+Step 1: type grep “smb” /usr/share/scripts/script.db on linux terminal and search for smb script related to os discovery.
+
+Press enter or click to view image in full size
+
+Step 2: Alternatively, type ls -l /usr/share/nmap/scripts/*smb* on linux terminal and search for smb script related to os discovery.
+
+Press enter or click to view image in full size
+
+2. Read through this script. What does it depend on?
+
+ANS: smb-brute
+
+EXPLANATION:
+
+Step 1: type cd /usr/share/nmap/scripts/ ; nano smb-os-discovery.nse on linux terminal
+
+Step 2: nano editor will open once the command execute and scroll down till you see dependencies and you will find dependencies ={“smb-brute”}
+
+
+Press enter or click to view image in full size
+
+Task 13: Firewall Evasion
+
+Which simple (and frequently relied upon) protocol is often blocked, requiring the use of the -Pn switch
+ANS: ICMP
+
+EXPLANATION: Fortunately Nmap provides an option for this: -Pn, which tells Nmap to not bother pinging the host before scanning it. This means that Nmap will always treat the target host(s) as being alive, effectively bypassing the ICMP block
+
+2. [Research] Which Nmap switch allows you to append an arbitrary length of random data to the end of packets?
+
+ANS: — data-length
+
+EXPLANATION: type man nmap on linux terminal and look at FIREWALL/IDS EVASION AND SPOOFING
+
+
+Task 14: Practical
+
+Does the target (MACHINE_IP)respond to ICMP (ping) requests (Y/N)?
+ANS: N
+
+EXPLANATION:
+
+Step 1: type sudo nmap -PE 10.10.119.181 on linux terminal ,if it`s not replying so answer is No / “N”
+
+
+2. Perform an Xmas scan on the first 999 ports of the target — how many ports are shown to be open or filtered?
+
+ANS: 999
+
+EXPLANATION:
+
+Step 1: type sudo nmap -p1–999 -sX 10.10.52.218 -vv -Pn on linux terminal and wait for the response that nmap has send to server.
+
+Press enter or click to view image in full size
+
+3. There is a reason given for this — what is it?
+
+Note: The answer will be in your scan results. Think carefully about which switches to use — and read the hint before asking for help!
+
+ANS: No Response
+
+EXPLANATION: (Hint): -vv will be use so it increase the verbosity
+
+Press enter or click to view image in full size
+
+4. Perform a TCP SYN scan on the first 5000 ports of the target — how many ports are shown to be open?
+
+ANS: 5
+
+EXPLANATION:
+
+Step 1: type sudo nmap -p1–5000 -sS 10.10.161.122 -Pn -vv on linux terminal and wait for the results and you will find how many ports are open.
+
+Press enter or click to view image in full size
+
+5. Open Wireshark (see Cryillic’s Wireshark Room for instructions) and perform a TCP Connect scan against port 80 on the target, monitoring the results. Make sure you understand what’s going on.
+
+ANS: No answer needed
+
+6. Deploy the ftp-anon script against the box. Can Nmap login successfully to the FTP server on port 21? (Y/N)
+
+ANS: Y
+
+EXPLANATION:
+
+Step 1: type on nmap — script=ftp-anon -p 21 10.10.119.181 -vv linux terminal and wait for the results whether nmap login successfully to the FTP server on port 21.
+
+Press enter or click to view image in full size
