@@ -1,0 +1,80 @@
+ask 1: Is there a hidden page?
+
+· Task 2: Can I find credentials to log in to the website?
+
+· Task 3: Is Hacking thrilling enough?
+
+· Task 4: Career path?
+
+· Task 5: Strategy to become successful in cyber security
+
+1. I was tasked to hack into a website to see if I could discover the hidden page that is exposed to the public.
+
+To discover the hidden page, I decided to try the most common pages created on websites and used a list of pages provided on the TryHackMe website. Here is the list:
+
+· sitemap
+
+· mail
+
+· login
+
+· register
+
+· admin
+
+I started by using one of the words in the list above provided on TryHackMe websites, and by changing the address by adding a word (from the list above ) to the existing URL until I discovered the correct word here is what I discovered after trying the first word.
+
+Press enter or click to view image in full size
+
+Continued to the second word on the list to see if it could be hidden. In the image below is the output, I got:
+
+Press enter or click to view image in full size
+
+I continued to the third word which is login and it finally led to another page which is the hidden page, I was searching for as you can see in the image below:
+
+Press enter or click to view image in full size
+
+This page didn’t output an error page which provided confidence that it was the hidden page.
+
+2. My second task was to hack into this website and log in as a registered user.
+
+To log in to this website, I needed to find credentials, so I decided to use the brute force attack which is to try as many credentials as possible till I am inside the website.
+
+I used some recommendations given in the TryHackMe website which are to use one of the most common used username which is admin as the username and try multiple passwords that are commonly used by people. Here is the list of passwords I used:
+
+Download the Medium app
+· abc123
+
+· 123456
+
+· qwerty
+
+· password
+
+· 654321
+
+Tried the first password which is abc123 with the username: admin. In the image below, you can see it was not successful.
+
+Press enter or click to view image in full size
+
+I continued with the second password which is 123456 and used admin as my username, I also got the same error as the above picture.
+
+I continued with the third password which is qwerty and admin as my username, as you can see in the picture below:
+
+Press enter or click to view image in full size
+
+Finally, the brute force attack was successful, and I was able to log in to the website and complete my task which was to hack (find credentials) to log in to the website.
+
+3. Hacking can be an exciting activity, but I am not referring to hacking for financial gain. Instead, I am talking about ethical hacking, which involves identifying and addressing vulnerabilities in an organization or system. Ethical hackers utilize their skills to improve security by detecting and mitigating potential threats, making the internet a safer place.
+
+Hackers use their skills to overcome obstacles. However, while some hackers use their skills to damage or steal data from an organization’s security system, others use their skills to protect it.
+
+4. I would like to talk about the potential careers that I would love to work on in the field of cyber security, which focuses on the Ethical Hacking domain. Here are my top three possible career choices:
+
+· Penetration Tester: Someone who is an ethical hacker who scales simulated cyber-attacks to proactively search for vulnerabilities in the network infrastructure and web applications. This involves testing the security of firewalls, servers, and applications to ensure they are adequately secured against attacks. Penetration testers also work to develop and implement solutions to any weaknesses that they identify. [1]
+
+· Red Team Engineer: Red team operators proactively simulate how cyber-attacks could be perpetrated in real-time against an organization. Red teams aggressively pursue all attack vectors including physical security controls and access to sensitive data, using social engineering among other techniques. [2]
+
+· Vulnerability Assessor: It is someone who identifies potential vulnerabilities that attackers could exploit, Vulnerability Assessors perform vulnerability scans using specialized software to scan computer systems and networks for potential security weaknesses and are responsible for configuring firewalls and other security tools and implementing other security measures to mitigate the risk of a breach. [1]
+
+Based on current and future technology trends, if I had to choose one among the three careers, I would lean towards becoming a penetration tester as a software developer. This choice would allow me to be more effective in creating secure software. I believe this career path will improve my problem-solving skills and keep me engaged and curious about the threats and attacks in the world of cyberattacks. This would be the one I would recommend to developers trying to get into cyber security.
